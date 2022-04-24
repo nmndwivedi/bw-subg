@@ -21,6 +21,7 @@ export function handleTokenCreated(event: TokenCreated): void {
 
   if (token == null) {
     token = new Token(event.params.tokenId.toString());
+    token.tokenId = event.params.tokenId;
     token.creator = event.params.owner.toHexString();
     token.owner = event.params.owner.toHexString();
     token.uri = event.params.uri.toHex();
@@ -41,6 +42,7 @@ export function handleTokenSold(event: TokenSold): void {
 
   if (token == null) {
     token = new Token(event.params.tokenId.toString());
+    token.tokenId = event.params.tokenId;
     token.creator = event.params.buyer.toHexString();
   }
 
