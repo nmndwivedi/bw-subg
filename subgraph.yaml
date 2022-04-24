@@ -1,0 +1,38 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Bidwatcher
+    network: goerli
+    source:
+      address: "0x8bA3A203aeEe8f528d9dEAc258d13335302689F8"
+      abi: Bidwatcher
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - TokenCreated
+        - TokenListed
+        - TokenSold
+        - Transfer
+      abis:
+        - name: Bidwatcher
+          file: ./abis/Bidwatcher.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: TokenCreated(indexed uint256,indexed address,indexed string)
+          handler: handleTokenCreated
+        - event: TokenListed(indexed uint256,indexed address,indexed uint256)
+          handler: handleTokenListed
+        - event: TokenSold(indexed uint256,indexed address)
+          handler: handleTokenSold
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
